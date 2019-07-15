@@ -10,19 +10,21 @@ import (
     "io/ioutil"
 )
 
+// type Healthcheck_response struct {
+//     Condition Condition `json:"condition"`
+//     ConsumerData ConsumerData `json:"consumerData"`
+//     VersionData VersionData `json:"versionData"`
+// }
+
 type Healthcheck_response struct {
     Condition Condition `json:"condition"`
-    ConsumerData ConsumerData `json:"consumerData"`
+    ConsumerData []map[string]interface{} `json:"consumerData"`   
     VersionData VersionData `json:"versionData"`
 }
 
 type Condition struct {
     Health string `json:"health"`
     Reason string `json:"reason"`
-}
-
-type ConsumerData struct {
-    ConsumerData []map[string]interface{} `json:"consumerData"`
 }
 
 type VersionData struct {
@@ -74,7 +76,7 @@ func getMetrics() {
         log.Fatal(jsonErr)
     }
 
-    fmt.Println(tap_metrics.Condition.Health)
+    // fmt.Println(tap_metrics.Condition.Health)
     fmt.Println(tap_metrics.ConsumerData)
 }
 
