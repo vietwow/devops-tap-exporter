@@ -10,30 +10,30 @@ import (
     "io/ioutil"
 )
 
-type healthcheck_response struct {
+type Healthcheck_response struct {
     Condition Condition `json:"condition"`
-    consumerData consumerData `json:"consumerData"`
-    versionData versionData `json:"versionData"`
+    ConsumerData ConsumerData `json:"consumerData"`
+    VersionData VersionData `json:"versionData"`
 }
 
 type Condition struct {
-    health string `json:"health"`
-    reason string `json:"reason"`
+    Health string `json:"health"`
+    Reason string `json:"reason"`
 }
 
-type consumerData struct {
-    consumerData []map[string]interface{} `json:"consumerData"`
+type ConsumerData struct {
+    ConsumerData []map[string]interface{} `json:"consumerData"`
 }
 
-type versionData struct {
-    commitAuthor string `json:"commitAuthor"`
-    commitCommitter string `json:"commitCommitter"`
-    description string `json:"description"`
-    gitBranch string `json:"gitBranch"`
-    gitCommitHash string `json:"gitCommitHash"`
-    homepage string `json:"homepage"`
-    version string `json:"version"`
-    workingDirectoryState string `json:"workingDirectoryState"`
+type VersionData struct {
+    CommitAuthor string `json:"commitAuthor"`
+    CommitCommitter string `json:"commitCommitter"`
+    Description string `json:"description"`
+    GitBranch string `json:"gitBranch"`
+    GitCommitHash string `json:"gitCommitHash"`
+    Homepage string `json:"homepage"`
+    Version string `json:"version"`
+    WorkingDirectoryState string `json:"workingDirectoryState"`
 }
 
 
@@ -42,7 +42,7 @@ type versionData struct {
 // }
 
 func getMetrics() {
-	fmt.Println("Inside function getMetrics...")
+    fmt.Println("Inside function getMetrics...")
 
     url := "http://13.112.47.182:8086/health"
 
@@ -68,14 +68,14 @@ func getMetrics() {
     }
 
     // parse
-    tap_metrics := healthcheck_response{}
+    tap_metrics := Healthcheck_response{}
     jsonErr := json.Unmarshal(body, &tap_metrics)
     if jsonErr != nil {
         log.Fatal(jsonErr)
     }
 
-    fmt.Println(tap_metrics.Condition.health)
-    fmt.Println(tap_metrics)
+    fmt.Println(tap_metrics.Condition.Health)
+    fmt.Println(tap_metrics.ConsumerData)
 }
 
 func main() {
