@@ -18,7 +18,7 @@ import (
 
 type Healthcheck_response struct {
     Condition Condition `json:"condition"`
-    ConsumerData []map[string]interface{} `json:"consumerData"`
+    ConsumerData map[string]map[string]interface{} `json:"consumerData"`
     VersionData VersionData `json:"versionData"`
 }
 
@@ -79,9 +79,8 @@ func getMetrics() {
     // fmt.Println(tap_metrics.Condition.Health)
     // fmt.Println(tap_metrics.ConsumerData)
     for node, v := range tap_metrics.ConsumerData {
-        fmt.Println(v.connectionCount)
+        fmt.Println(node, v["connectionCount"])
     }
-
 }
 
 func main() {
