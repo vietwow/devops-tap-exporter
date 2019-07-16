@@ -1,6 +1,8 @@
 package healthcheck
 
 import (
+    "fmt"
+    "net"
     "net/http"
     "log"
     "encoding/json"
@@ -45,6 +47,7 @@ func NewClient() *Client {
 }
 
 func(c *Client) DoHck(URL string) (Healthcheck_response, error) {
+
     tClient := http.Client{
         Timeout: time.Second * 2, // Maximum of 2 secs
     }
@@ -72,6 +75,16 @@ func(c *Client) DoHck(URL string) (Healthcheck_response, error) {
     if jsonErr != nil {
         log.Fatal(jsonErr)
     }
+
+    // debug
+    // for k, v := range tap_metrics.ConsumerData {
+    //     fmt.Println(k, v)
+    // }
+
+    host, _, _ := net.SplitHostPort(URL)
+    key := host+":443"
+    fmt.Println(tap_metrics.ConsumerData[key])
+    fmt.Println("ConnectionCount of " + key + " is : " + string(tap_metrics.ConsumerData[key].ConnectionCount))
 
     return tap_metrics,nil
 }
