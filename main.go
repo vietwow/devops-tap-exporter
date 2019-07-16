@@ -57,15 +57,19 @@ func getMetrics() {
 
     res, _ := client.DoHck("http://172.31.19.76:8086/health")
     gauge1.Set(float64(res.ConsumerData["172.31.19.76:443"].ConnectionCount))
+    gauge2.Set(float64(res.ConsumerData["172.31.19.76:6502"].ConnectionCount))
 
     res, _ = client.DoHck("http://172.31.23.27:8086/health")
-    gauge2.Set(float64(res.ConsumerData["172.31.23.27:443"].ConnectionCount))
+    gauge3.Set(float64(res.ConsumerData["172.31.23.27:443"].ConnectionCount))
+    gauge4.Set(float64(res.ConsumerData["172.31.23.27:6502"].ConnectionCount))
 
     res, _ = client.DoHck("http://172.31.25.57:8086/health")
-    gauge3.Set(float64(res.ConsumerData["172.31.25.57:443"].ConnectionCount))
+    gauge5.Set(float64(res.ConsumerData["172.31.25.57:443"].ConnectionCount))
+    gauge6.Set(float64(res.ConsumerData["172.31.25.57:6502"].ConnectionCount))
 
     res, _ = client.DoHck("http://172.31.16.71:8086/health")
-    gauge4.Set(float64(res.ConsumerData["172.31.16.71:443"].ConnectionCount))
+    gauge7.Set(float64(res.ConsumerData["172.31.16.71:443"].ConnectionCount))
+    gauge8.Set(float64(res.ConsumerData["172.31.16.71:6502"].ConnectionCount))
 
     // tClient := http.Client{
     //     Timeout: time.Second * 2, // Maximum of 2 secs
@@ -149,7 +153,7 @@ var (
             Name:      "node1a",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
-                "node":   "172.31.19.76:8086",
+                "node":   "172.31.19.76:443",
             },
         })
 
@@ -159,7 +163,7 @@ var (
             Name:      "node1b",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
-                "node":   "172.31.19.76:443",
+                "node":   "172.31.19.76:6502",
             },
         })
 
@@ -169,7 +173,7 @@ var (
             Name:      "node2a",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
-                "node":   "172.31.23.27:8086",
+                "node":   "172.31.23.27:443",
             },
         })
 
@@ -179,7 +183,7 @@ var (
             Name:      "node2b",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
-                "node":   "172.31.23.27:443",
+                "node":   "172.31.23.27:6502",
             },
         })
 
@@ -189,7 +193,7 @@ var (
             Name:      "node3a",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
-                "node":   "172.31.25.57:8086",
+                "node":   "172.31.25.57:443",
             },
         })
 
@@ -199,7 +203,7 @@ var (
             Name:      "node3b",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
-                "node":   "172.31.25.57:443",
+                "node":   "172.31.25.57:6502",
             },
         })
 
@@ -209,7 +213,7 @@ var (
             Name:      "node4a",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
-                "node":   "172.31.16.71:8086",
+                "node":   "172.31.16.71:443",
             },
         })
 
@@ -219,7 +223,7 @@ var (
             Name:      "node4b",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
-                "node":   "172.31.16.71:443",
+                "node":   "172.31.16.71:6502",
             },
         })
 
