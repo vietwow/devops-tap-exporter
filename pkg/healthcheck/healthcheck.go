@@ -3,6 +3,9 @@ package healthcheck
 import (
     "net/http"
     "log"
+    "encoding/json"
+    "time"
+    "io/ioutil"
 )
 
 type ConsumerDataBlock struct {
