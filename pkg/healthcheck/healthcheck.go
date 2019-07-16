@@ -82,15 +82,15 @@ func(c *Client) DoHck(URL string) (Healthcheck_response, error) {
     //     fmt.Println(k, v)
     // }
 
-    // replaced_url := strings.Replace(URL, ":8086", ":443", -1)
-    // u, err := url.Parse(replaced_url)
-    // if err != nil {
-    //     log.Fatal(err)
-    // }
+    replaced_url := strings.Replace(URL, ":8086", ":443", -1)
+    u, err := url.Parse(replaced_url)
+    if err != nil {
+        log.Fatal(err)
+    }
     // // fmt.Println(u.Host)
 
     // fmt.Println(tap_metrics.ConsumerData[u.Host])
-    // fmt.Println("ConsumerData[" + u.Host + "] when curl " + URL + " is : " + string(tap_metrics.ConsumerData[u.Host].ConnectionCount))
+    fmt.Println("ConsumerData[" + u.Host + "] when curl " + URL + " is : " + string(tap_metrics.ConsumerData[u.Host].ConnectionCount))
     // fmt.Println("=====================")
 
     return tap_metrics,nil
