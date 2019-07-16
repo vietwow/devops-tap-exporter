@@ -3,18 +3,16 @@ package main
 import (
     "fmt"
     "net/http"
-    // "github.com/prometheus/client_golang/prometheus/promhttp"
+    "github.com/prometheus/client_golang/prometheus"
+    "github.com/prometheus/client_golang/prometheus/promhttp"
     "encoding/json"
     "time"
     "log"
     "io/ioutil"
+    "os"
+    "os/signal"
+    "syscall"
 )
-
-// type Healthcheck_response struct {
-//     Condition Condition `json:"condition"`
-//     ConsumerData ConsumerData `json:"consumerData"`
-//     VersionData VersionData `json:"versionData"`
-// }
 
 type Healthcheck_response struct {
     Condition Condition `json:"condition"`
@@ -46,6 +44,7 @@ type VersionData struct {
 func getMetrics() {
     fmt.Println("Inside function getMetrics...")
 
+    // url := fmt.Sprintf(baseURL+"/%s/todos", s.Username)
     url := "http://13.112.47.182:8086/health"
 
     tClient := http.Client{
@@ -79,12 +78,88 @@ func getMetrics() {
     // fmt.Println(tap_metrics.Condition.Health)
     // fmt.Println(tap_metrics.ConsumerData)
     for node, v := range tap_metrics.ConsumerData {
-        fmt.Println(node, v["connectionCount"])
+        // fmt.Println(node, v["connectionCount"])
+        if node == "172.31.19.76:443" {
+            // fmt.Println("add gauge1")
+            gauge1.Set(float64(v["connectionCount"]))
+
+        } else if node == "172.31.19.76:6502" {
+            // fmt.Println("add gauge2")
+            gauge2.Set(float64(v["connectionCount"]))
+        }
     }
 }
 
+var (
+    // counter = prometheus.NewCounter(
+    //    prometheus.CounterOpts{
+    //       Namespace: "golang",
+    //       Name:      "my_counter",
+    //       Help:      "This is my counter",
+    //    })
+
+    gauge1 = prometheus.NewGauge(
+        prometheus.GaugeOpts{
+            Namespace: "golang",
+            Name:      "my_gauge1",
+            Help:      "This is my gauge",
+            ConstLabels: prometheus.Labels{
+                "node":   "172.31.19.76:443",
+            },
+        })
+
+    gauge2 = prometheus.NewGauge(
+        prometheus.GaugeOpts{
+            Namespace: "golang",
+            Name:      "my_gauge2",
+            Help:      "This is my gauge",
+            ConstLabels: prometheus.Labels{
+                "node":   "172.31.19.76:6502",
+            },
+        })
+
+    // histogram = prometheus.NewHistogram(
+    //    prometheus.HistogramOpts{
+    //       Namespace: "golang",
+    //       Name:      "my_histogram",
+    //       Help:      "This is my histogram",
+    //    })
+
+    // summary = prometheus.NewSummary(
+    //    prometheus.SummaryOpts{
+    //       Namespace: "golang",
+    //       Name:      "my_summary",
+    //       Help:      "This is my summary",
+    //    })
+)
+
+func init() {
+    // prometheus.MustRegister(counter)
+    prometheus.MustRegister(gauge1)
+    prometheus.MustRegister(gauge2)
+    // prometheus.MustRegister(histogram)
+    // prometheus.MustRegister(summary)
+}
 func main() {
-	// http.Handle("/metrics", promhttp.Handler())
-	// http.ListenAndServe(":80", nil)
-	getMetrics()
+    signalChan := make(chan os.Signal, 1)
+    signal.Notify(signalChan, syscall.SIGTERM)
+    go func() {
+        log.Printf("SIGTERM received: %v. Exiting...", <-signalChan)
+        os.Exit(0)
+    }()
+
+    go func() {
+        for {
+            // counter.Add(rand.Float64() * 5)
+            //gauge.Add(rand.Float64()*15 - 5)
+            getMetrics()
+            // histogram.Observe(rand.Float64() * 10)
+            // summary.Observe(rand.Float64() * 10)
+
+            time.Sleep(time.Second)
+        }
+    }()
+
+    http.Handle("/metrics", promhttp.Handler())
+    log.Fatal(http.ListenAndServe(":80", nil))
 }
