@@ -52,16 +52,16 @@ func getMetrics() {
 
     client := healthcheck.NewClient()
 
-    res, _ := client.doHck("http://172.31.19.76:8086/health")
+    res, _ := client.DoHck("http://172.31.19.76:8086/health")
     gauge1.Set(float64(res.ConsumerData["172.31.19.76:8186"].ConnectionCount))
 
-    res, _ = client.doHck("http://172.31.23.27:8086/health")
+    res, _ = client.DoHck("http://172.31.23.27:8086/health")
     gauge2.Set(float64(res.ConsumerData["172.31.23.27:8186"].ConnectionCount))
 
-    res, _ = client.doHck("http://172.31.25.57:8086/health")
+    res, _ = client.DoHck("http://172.31.25.57:8086/health")
     gauge3.Set(float64(res.ConsumerData["172.31.25.57:8186"].ConnectionCount))
 
-    res, _ = client.doHck("http://172.31.16.71:8086/health")
+    res, _ = client.DoHck("http://172.31.16.71:8086/health")
     gauge4.Set(float64(res.ConsumerData["172.31.16.71:8186"].ConnectionCount))
 
     // tClient := http.Client{
@@ -133,7 +133,7 @@ var (
     gauge1 = prometheus.NewGauge(
         prometheus.GaugeOpts{
             Namespace: "golang",
-            Name:      "172.31.19.76:8186",
+            Name:      "node1a",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.19.76:8186",
@@ -143,7 +143,7 @@ var (
     gauge2 = prometheus.NewGauge(
         prometheus.GaugeOpts{
             Namespace: "golang",
-            Name:      "172.31.19.76:443",
+            Name:      "node1b",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.19.76:443",
@@ -153,7 +153,7 @@ var (
     gauge3 = prometheus.NewGauge(
         prometheus.GaugeOpts{
             Namespace: "golang",
-            Name:      "172.31.23.27:8186",
+            Name:      "node2a",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.23.27:8186",
@@ -163,7 +163,7 @@ var (
     gauge4 = prometheus.NewGauge(
         prometheus.GaugeOpts{
             Namespace: "golang",
-            Name:      "172.31.23.27:443",
+            Name:      "node2b",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.23.27:443",
@@ -173,7 +173,7 @@ var (
     gauge5 = prometheus.NewGauge(
         prometheus.GaugeOpts{
             Namespace: "golang",
-            Name:      "172.31.25.57:8186",
+            Name:      "node3a",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.25.57:8186",
@@ -183,7 +183,7 @@ var (
     gauge6 = prometheus.NewGauge(
         prometheus.GaugeOpts{
             Namespace: "golang",
-            Name:      "172.31.25.57:443",
+            Name:      "node3b",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.25.57:443",
@@ -193,7 +193,7 @@ var (
     gauge7 = prometheus.NewGauge(
         prometheus.GaugeOpts{
             Namespace: "golang",
-            Name:      "172.31.16.71:8186",
+            Name:      "node4a",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.16.71:8186",
@@ -203,7 +203,7 @@ var (
     gauge8 = prometheus.NewGauge(
         prometheus.GaugeOpts{
             Namespace: "golang",
-            Name:      "172.31.16.71:443",
+            Name:      "node4b",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.16.71:443",

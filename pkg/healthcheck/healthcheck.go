@@ -44,7 +44,7 @@ func NewClient() *Client {
 	return &Client{}
 }
 
-func(c *Client) doHck(URL string) (Healthcheck_response, error) {
+func(c *Client) DoHck(URL string) (Healthcheck_response, error) {
     tClient := http.Client{
         Timeout: time.Second * 2, // Maximum of 2 secs
     }
