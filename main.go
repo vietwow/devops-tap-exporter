@@ -1,7 +1,7 @@
 package main
 
 import (
-    // "fmt"
+    "fmt"
     "github.com/prometheus/client_golang/prometheus"
     "github.com/prometheus/client_golang/prometheus/promhttp"
     "os"
@@ -133,95 +133,95 @@ var (
     //       Help:      "This is my counter",
     //    })
 
-    gauge0 = prometheus.NewGauge(
-        prometheus.GaugeOpts{
-            Namespace: "golang",
-            Name:      "node1a",
-            Help:      "This is my gauge",
-            ConstLabels: prometheus.Labels{
-                "node":   "13.112.47.182:8086",
-            },
-        })
-
-    // gauge1 = prometheus.NewGauge(
+    // gauge0 = prometheus.NewGauge(
     //     prometheus.GaugeOpts{
     //         Namespace: "golang",
     //         Name:      "node1a",
     //         Help:      "This is my gauge",
     //         ConstLabels: prometheus.Labels{
-    //             "node":   "172.31.19.76:8186",
+    //             "node":   "13.112.47.182:8086",
     //         },
     //     })
 
-    // gauge2 = prometheus.NewGauge(
-    //     prometheus.GaugeOpts{
-    //         Namespace: "golang",
-    //         Name:      "node1b",
-    //         Help:      "This is my gauge",
-    //         ConstLabels: prometheus.Labels{
-    //             "node":   "172.31.19.76:443",
-    //         },
-    //     })
+    gauge1 = prometheus.NewGauge(
+        prometheus.GaugeOpts{
+            Namespace: "golang",
+            Name:      "node1a",
+            Help:      "This is my gauge",
+            ConstLabels: prometheus.Labels{
+                "node":   "172.31.19.76:8186",
+            },
+        })
 
-    // gauge3 = prometheus.NewGauge(
-    //     prometheus.GaugeOpts{
-    //         Namespace: "golang",
-    //         Name:      "node2a",
-    //         Help:      "This is my gauge",
-    //         ConstLabels: prometheus.Labels{
-    //             "node":   "172.31.23.27:8186",
-    //         },
-    //     })
+    gauge2 = prometheus.NewGauge(
+        prometheus.GaugeOpts{
+            Namespace: "golang",
+            Name:      "node1b",
+            Help:      "This is my gauge",
+            ConstLabels: prometheus.Labels{
+                "node":   "172.31.19.76:443",
+            },
+        })
 
-    // gauge4 = prometheus.NewGauge(
-    //     prometheus.GaugeOpts{
-    //         Namespace: "golang",
-    //         Name:      "node2b",
-    //         Help:      "This is my gauge",
-    //         ConstLabels: prometheus.Labels{
-    //             "node":   "172.31.23.27:443",
-    //         },
-    //     })
+    gauge3 = prometheus.NewGauge(
+        prometheus.GaugeOpts{
+            Namespace: "golang",
+            Name:      "node2a",
+            Help:      "This is my gauge",
+            ConstLabels: prometheus.Labels{
+                "node":   "172.31.23.27:8186",
+            },
+        })
 
-    // gauge5 = prometheus.NewGauge(
-    //     prometheus.GaugeOpts{
-    //         Namespace: "golang",
-    //         Name:      "node3a",
-    //         Help:      "This is my gauge",
-    //         ConstLabels: prometheus.Labels{
-    //             "node":   "172.31.25.57:8186",
-    //         },
-    //     })
+    gauge4 = prometheus.NewGauge(
+        prometheus.GaugeOpts{
+            Namespace: "golang",
+            Name:      "node2b",
+            Help:      "This is my gauge",
+            ConstLabels: prometheus.Labels{
+                "node":   "172.31.23.27:443",
+            },
+        })
 
-    // gauge6 = prometheus.NewGauge(
-    //     prometheus.GaugeOpts{
-    //         Namespace: "golang",
-    //         Name:      "node3b",
-    //         Help:      "This is my gauge",
-    //         ConstLabels: prometheus.Labels{
-    //             "node":   "172.31.25.57:443",
-    //         },
-    //     })
+    gauge5 = prometheus.NewGauge(
+        prometheus.GaugeOpts{
+            Namespace: "golang",
+            Name:      "node3a",
+            Help:      "This is my gauge",
+            ConstLabels: prometheus.Labels{
+                "node":   "172.31.25.57:8186",
+            },
+        })
 
-    // gauge7 = prometheus.NewGauge(
-    //     prometheus.GaugeOpts{
-    //         Namespace: "golang",
-    //         Name:      "node4a",
-    //         Help:      "This is my gauge",
-    //         ConstLabels: prometheus.Labels{
-    //             "node":   "172.31.16.71:8186",
-    //         },
-    //     })
+    gauge6 = prometheus.NewGauge(
+        prometheus.GaugeOpts{
+            Namespace: "golang",
+            Name:      "node3b",
+            Help:      "This is my gauge",
+            ConstLabels: prometheus.Labels{
+                "node":   "172.31.25.57:443",
+            },
+        })
 
-    // gauge8 = prometheus.NewGauge(
-    //     prometheus.GaugeOpts{
-    //         Namespace: "golang",
-    //         Name:      "node4b",
-    //         Help:      "This is my gauge",
-    //         ConstLabels: prometheus.Labels{
-    //             "node":   "172.31.16.71:443",
-    //         },
-    //     })
+    gauge7 = prometheus.NewGauge(
+        prometheus.GaugeOpts{
+            Namespace: "golang",
+            Name:      "node4a",
+            Help:      "This is my gauge",
+            ConstLabels: prometheus.Labels{
+                "node":   "172.31.16.71:8186",
+            },
+        })
+
+    gauge8 = prometheus.NewGauge(
+        prometheus.GaugeOpts{
+            Namespace: "golang",
+            Name:      "node4b",
+            Help:      "This is my gauge",
+            ConstLabels: prometheus.Labels{
+                "node":   "172.31.16.71:443",
+            },
+        })
 
     // histogram = prometheus.NewHistogram(
     //    prometheus.HistogramOpts{
@@ -240,15 +240,15 @@ var (
 
 func init() {
     // prometheus.MustRegister(counter)
-    // prometheus.MustRegister(gauge1)
-    // prometheus.MustRegister(gauge2)
-    // prometheus.MustRegister(gauge3)
-    // prometheus.MustRegister(gauge4)
-    // prometheus.MustRegister(gauge5)
-    // prometheus.MustRegister(gauge6)
-    // prometheus.MustRegister(gauge7)
-    // prometheus.MustRegister(gauge8)
-    prometheus.MustRegister(gauge0)
+    prometheus.MustRegister(gauge1)
+    prometheus.MustRegister(gauge2)
+    prometheus.MustRegister(gauge3)
+    prometheus.MustRegister(gauge4)
+    prometheus.MustRegister(gauge5)
+    prometheus.MustRegister(gauge6)
+    prometheus.MustRegister(gauge7)
+    prometheus.MustRegister(gauge8)
+    // prometheus.MustRegister(gauge0)
     // prometheus.MustRegister(histogram)
     // prometheus.MustRegister(summary)
 }
@@ -260,6 +260,7 @@ func main() {
         os.Exit(0)
     }()
 
+    // fmt.Println("====== Start =======")
     go func() {
         for {
             // counter.Add(rand.Float64() * 5)
