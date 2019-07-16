@@ -2,16 +2,14 @@ package main
 
 import (
     // "fmt"
-
     "github.com/prometheus/client_golang/prometheus"
     "github.com/prometheus/client_golang/prometheus/promhttp"
-    "encoding/json"
-    "time"
-    "log"
-    "io/ioutil"
     "os"
     "os/signal"
     "syscall"
+    "log"
+    "time"
+    "net/http"
 
     "github.com/vietwow/devops-tap-exporter/pkg/healthcheck"
 )
@@ -57,13 +55,13 @@ func getMetrics() {
     res, _ := client.doHck("http://172.31.19.76:8086/health")
     gauge1.Set(float64(res.ConsumerData["172.31.19.76:8186"].ConnectionCount))
 
-    res, _ := client.doHck("http://172.31.23.27:8086/health")
+    res, _ = client.doHck("http://172.31.23.27:8086/health")
     gauge2.Set(float64(res.ConsumerData["172.31.23.27:8186"].ConnectionCount))
 
-    res, _ := client.doHck("http://172.31.25.57:8086/health")
+    res, _ = client.doHck("http://172.31.25.57:8086/health")
     gauge3.Set(float64(res.ConsumerData["172.31.25.57:8186"].ConnectionCount))
 
-    res, _ := client.doHck("http://172.31.16.71:8086/health")
+    res, _ = client.doHck("http://172.31.16.71:8086/health")
     gauge4.Set(float64(res.ConsumerData["172.31.16.71:8186"].ConnectionCount))
 
     // tClient := http.Client{
@@ -114,14 +112,14 @@ func getMetrics() {
     // }
 
     // fmt.Print(tap_metrics.ConsumerData["172.31.19.76:443"].ConnectionCount)
-    gauge1.Set(float64(tap_metrics1.ConsumerData["172.31.19.76:8186"].ConnectionCount))
-    gauge2.Set(float64(tap_metrics2.ConsumerData["172.31.23.27:8186"].ConnectionCount))
-    gauge3.Set(float64(tap_metrics3.ConsumerData["172.31.25.57:8186"].ConnectionCount))
-    gauge4.Set(float64(tap_metrics4.ConsumerData["172.31.16.71:8186"].ConnectionCount))
-    gauge1.Set(float64(tap_metrics5.ConsumerData["172.31.19.76:8186"].ConnectionCount))
-    gauge2.Set(float64(tap_metrics6.ConsumerData["172.31.23.27:8186"].ConnectionCount))
-    gauge3.Set(float64(tap_metrics7.ConsumerData["172.31.25.57:8186"].ConnectionCount))
-    gauge4.Set(float64(tap_metrics8.ConsumerData["172.31.16.71:8186"].ConnectionCount))
+    // gauge1.Set(float64(tap_metrics1.ConsumerData["172.31.19.76:8186"].ConnectionCount))
+    // gauge2.Set(float64(tap_metrics2.ConsumerData["172.31.23.27:8186"].ConnectionCount))
+    // gauge3.Set(float64(tap_metrics3.ConsumerData["172.31.25.57:8186"].ConnectionCount))
+    // gauge4.Set(float64(tap_metrics4.ConsumerData["172.31.16.71:8186"].ConnectionCount))
+    // gauge1.Set(float64(tap_metrics5.ConsumerData["172.31.19.76:8186"].ConnectionCount))
+    // gauge2.Set(float64(tap_metrics6.ConsumerData["172.31.23.27:8186"].ConnectionCount))
+    // gauge3.Set(float64(tap_metrics7.ConsumerData["172.31.25.57:8186"].ConnectionCount))
+    // gauge4.Set(float64(tap_metrics8.ConsumerData["172.31.16.71:8186"].ConnectionCount))
 }
 
 var (
