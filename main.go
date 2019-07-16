@@ -14,9 +14,17 @@ import (
     "syscall"
 )
 
+type ConsumerDataBlock struct {
+  ConnectionCount int `json:"connectionCount"`
+  ConnectionLimit int `json:"connectionLimit"`
+  ConnectionLoad int `json:"connectionLoad"`
+  ConnectionsRemaining int `json:"connectionsRemaining"`
+}
+
 type Healthcheck_response struct {
     Condition Condition `json:"condition"`
-    ConsumerData map[string]map[string]interface{} `json:"consumerData"`
+    // ConsumerData map[string]map[string]interface{} `json:"consumerData"`
+    ConsumerData map[string]ConsumerDataBlock `json:"consumerData"`
     VersionData VersionData `json:"versionData"`
 }
 
