@@ -56,16 +56,16 @@ func getMetrics() {
     // gauge0.Set(float64(res.ConsumerData["13.112.47.182:8186"].ConnectionCount))
 
     res, _ := client.DoHck("http://172.31.19.76:8086/health")
-    gauge1.Set(float64(res.ConsumerData["172.31.19.76:8086"].ConnectionCount))
+    gauge1.Set(float64(res.ConsumerData["172.31.19.76:443"].ConnectionCount))
 
     res, _ = client.DoHck("http://172.31.23.27:8086/health")
-    gauge2.Set(float64(res.ConsumerData["172.31.23.27:8086"].ConnectionCount))
+    gauge2.Set(float64(res.ConsumerData["172.31.23.27:443"].ConnectionCount))
 
     res, _ = client.DoHck("http://172.31.25.57:8086/health")
-    gauge3.Set(float64(res.ConsumerData["172.31.25.57:8086"].ConnectionCount))
+    gauge3.Set(float64(res.ConsumerData["172.31.25.57:443"].ConnectionCount))
 
     res, _ = client.DoHck("http://172.31.16.71:8086/health")
-    gauge4.Set(float64(res.ConsumerData["172.31.16.71:8086"].ConnectionCount))
+    gauge4.Set(float64(res.ConsumerData["172.31.16.71:443"].ConnectionCount))
 
     // tClient := http.Client{
     //     Timeout: time.Second * 2, // Maximum of 2 secs
