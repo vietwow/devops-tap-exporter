@@ -9,6 +9,7 @@ import (
     "time"
     "io/ioutil"
     "strings"
+    "strconv"
 )
 
 type ConsumerDataBlock struct {
@@ -90,7 +91,7 @@ func(c *Client) DoHck(URL string) (Healthcheck_response, error) {
     // // fmt.Println(u.Host)
 
     // fmt.Println(tap_metrics.ConsumerData[u.Host])
-    fmt.Println("ConsumerData[" + u.Host + "] when curl " + URL + " is : " + string(tap_metrics.ConsumerData[u.Host].ConnectionCount))
+    fmt.Println("ConsumerData[" + u.Host + "] when curl " + URL + " is : " + strconv.Itoa(tap_metrics.ConsumerData[u.Host].ConnectionCount))
     // fmt.Println("=====================")
 
     return tap_metrics,nil
