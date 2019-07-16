@@ -1,7 +1,7 @@
 package main
 
 import (
-    "fmt"
+    // "fmt"
     "net/http"
     "github.com/prometheus/client_golang/prometheus"
     "github.com/prometheus/client_golang/prometheus/promhttp"
@@ -17,7 +17,7 @@ import (
 type ConsumerDataBlock struct {
   ConnectionCount int `json:"connectionCount"`
   ConnectionLimit int `json:"connectionLimit"`
-  ConnectionLoad int `json:"connectionLoad"`
+  ConnectionLoad float64 `json:"connectionLoad"`
   ConnectionsRemaining int `json:"connectionsRemaining"`
 }
 
@@ -44,13 +44,8 @@ type VersionData struct {
     WorkingDirectoryState string `json:"workingDirectoryState"`
 }
 
-
-// type Metrics struct {
-//     RedisRequests *prometheus.CounterVec
-// }
-
 func getMetrics() {
-    fmt.Println("Inside function getMetrics...")
+    // fmt.Println("Inside function getMetrics...")
 
     // url := fmt.Sprintf(baseURL+"/%s/todos", s.Username)
     url := "http://13.112.47.182:8086/health"
@@ -85,17 +80,23 @@ func getMetrics() {
 
     // fmt.Println(tap_metrics.Condition.Health)
     // fmt.Println(tap_metrics.ConsumerData)
-    for node, v := range tap_metrics.ConsumerData {
-        // fmt.Println(node, v["connectionCount"])
-        if node == "172.31.19.76:443" {
-            // fmt.Println("add gauge1")
-            gauge1.Set(float64(v["connectionCount"]))
 
-        } else if node == "172.31.19.76:6502" {
-            // fmt.Println("add gauge2")
-            gauge2.Set(float64(v["connectionCount"]))
-        }
-    }
+    // empty interface
+    // for node, v := range tap_metrics.ConsumerData {
+    //     // fmt.Println(node, v["connectionCount"])
+    //     if node == "172.31.19.76:443" {
+    //         // fmt.Println("add gauge1")
+    //         gauge1.Set(float64(v["connectionCount"]))
+
+    //     } else if node == "172.31.19.76:6502" {
+    //         // fmt.Println("add gauge2")
+    //         gauge2.Set(float64(v["connectionCount"]))
+    //     }
+    // }
+
+    // fmt.Print(tap_metrics.ConsumerData["172.31.19.76:443"].ConnectionCount)
+    gauge1.Set(float64(tap_metrics.ConsumerData["172.31.19.76:443"].ConnectionCount))
+    gauge2.Set(float64(tap_metrics.ConsumerData["172.31.19.76:6502"].ConnectionCount))
 }
 
 var (
