@@ -1,5 +1,10 @@
 package healthcheck
 
+import (
+    "net/http"
+    "log"
+)
+
 type ConsumerDataBlock struct {
   ConnectionCount int `json:"connectionCount"`
   ConnectionLimit int `json:"connectionLimit"`
