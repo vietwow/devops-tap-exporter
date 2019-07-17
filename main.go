@@ -14,39 +14,7 @@ import (
     "github.com/vietwow/devops-tap-exporter/pkg/healthcheck"
 )
 
-// type ConsumerDataBlock struct {
-//   ConnectionCount int `json:"connectionCount"`
-//   ConnectionLimit int `json:"connectionLimit"`
-//   ConnectionLoad float64 `json:"connectionLoad"`
-//   ConnectionsRemaining int `json:"connectionsRemaining"`
-// }
-
-// type Healthcheck_response struct {
-//     Condition Condition `json:"condition"`
-//     // ConsumerData map[string]map[string]interface{} `json:"consumerData"`
-//     ConsumerData map[string]ConsumerDataBlock `json:"consumerData"`
-//     VersionData VersionData `json:"versionData"`
-// }
-
-// type Condition struct {
-//     Health string `json:"health"`
-//     Reason string `json:"reason"`
-// }
-
-// type VersionData struct {
-//     CommitAuthor string `json:"commitAuthor"`
-//     CommitCommitter string `json:"commitCommitter"`
-//     Description string `json:"description"`
-//     GitBranch string `json:"gitBranch"`
-//     GitCommitHash string `json:"gitCommitHash"`
-//     Homepage string `json:"homepage"`
-//     Version string `json:"version"`
-//     WorkingDirectoryState string `json:"workingDirectoryState"`
-// }
-
-
 func getMetrics() {
-    // fmt.Println("Inside function getMetrics...")
 
     // url := fmt.Sprintf(baseURL+"/%s/todos", s.Username)
 
@@ -70,63 +38,6 @@ func getMetrics() {
     res, _ = client.DoHck("http://172.31.16.71:8086/health")
     gauge7.Set(float64(res.ConsumerData["172.31.16.71:443"].ConnectionCount))
     gauge8.Set(float64(res.ConsumerData["172.31.16.71:6502"].ConnectionCount))
-
-    // tClient := http.Client{
-    //     Timeout: time.Second * 2, // Maximum of 2 secs
-    // }
-
-    // req, err := http.NewRequest(http.MethodGet, url, nil)
-    // if err != nil {
-    //     log.Fatal(err)
-    // }
-
-    // // req.Header.Set("User-Agent", "spacecount-tutorial")
-
-    // res, getErr := tClient.Do(req)
-    // if getErr != nil {
-    //     log.Fatal(getErr)
-    // }
-
-    // body, readErr := ioutil.ReadAll(res.Body)
-    // if readErr != nil {
-    //     log.Fatal(readErr)
-    // }
-
-    // // parse
-    // tap_metrics := Healthcheck_response{}
-    // jsonErr := json.Unmarshal(body, &tap_metrics)
-    // if jsonErr != nil {
-    //     log.Fatal(jsonErr)
-    // }
-
-
-    
-
-    // fmt.Println(tap_metrics.Condition.Health)
-    // fmt.Println(tap_metrics.ConsumerData)
-
-    // empty interface
-    // for node, v := range tap_metrics.ConsumerData {
-    //     // fmt.Println(node, v["connectionCount"])
-    //     if node == "172.31.19.76:443" {
-    //         // fmt.Println("add gauge1")
-    //         gauge1.Set(float64(v["connectionCount"]))
-
-    //     } else if node == "172.31.19.76:6502" {
-    //         // fmt.Println("add gauge2")
-    //         gauge2.Set(float64(v["connectionCount"]))
-    //     }
-    // }
-
-    // fmt.Print(tap_metrics.ConsumerData["172.31.19.76:443"].ConnectionCount)
-    // gauge1.Set(float64(tap_metrics1.ConsumerData["172.31.19.76:8186"].ConnectionCount))
-    // gauge2.Set(float64(tap_metrics2.ConsumerData["172.31.23.27:8186"].ConnectionCount))
-    // gauge3.Set(float64(tap_metrics3.ConsumerData["172.31.25.57:8186"].ConnectionCount))
-    // gauge4.Set(float64(tap_metrics4.ConsumerData["172.31.16.71:8186"].ConnectionCount))
-    // gauge1.Set(float64(tap_metrics5.ConsumerData["172.31.19.76:8186"].ConnectionCount))
-    // gauge2.Set(float64(tap_metrics6.ConsumerData["172.31.23.27:8186"].ConnectionCount))
-    // gauge3.Set(float64(tap_metrics7.ConsumerData["172.31.25.57:8186"].ConnectionCount))
-    // gauge4.Set(float64(tap_metrics8.ConsumerData["172.31.16.71:8186"].ConnectionCount))
 }
 
 var (
@@ -147,20 +58,12 @@ var (
     //         },
     //     })
 
-    gauge1 = prometheus.NewGauge(
-        prometheus.GaugeOpts{
-            Namespace: "golang",
-            Name:      "node1a",
-            Help:      "This is my gauge",
-            ConstLabels: prometheus.Labels{
-                "node":   "172.31.19.76:443",
-            },
-        })
+
 
     gauge2 = prometheus.NewGauge(
         prometheus.GaugeOpts{
-            Namespace: "golang",
-            Name:      "node1b",
+            Namespace: "tap",
+            Name:      "ws_connections",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.19.76:6502",
@@ -169,8 +72,8 @@ var (
 
     gauge3 = prometheus.NewGauge(
         prometheus.GaugeOpts{
-            Namespace: "golang",
-            Name:      "node2a",
+            Namespace: "tap",
+            Name:      "ws_connections",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.23.27:443",
@@ -179,8 +82,8 @@ var (
 
     gauge4 = prometheus.NewGauge(
         prometheus.GaugeOpts{
-            Namespace: "golang",
-            Name:      "node2b",
+            Namespace: "tap",
+            Name:      "ws_connections",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.23.27:6502",
@@ -189,8 +92,8 @@ var (
 
     gauge5 = prometheus.NewGauge(
         prometheus.GaugeOpts{
-            Namespace: "golang",
-            Name:      "node3a",
+            Namespace: "tap",
+            Name:      "ws_connections",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.25.57:443",
@@ -199,8 +102,8 @@ var (
 
     gauge6 = prometheus.NewGauge(
         prometheus.GaugeOpts{
-            Namespace: "golang",
-            Name:      "node3b",
+            Namespace: "tap",
+            Name:      "ws_connections",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.25.57:6502",
@@ -209,8 +112,8 @@ var (
 
     gauge7 = prometheus.NewGauge(
         prometheus.GaugeOpts{
-            Namespace: "golang",
-            Name:      "node4a",
+            Namespace: "tap",
+            Name:      "ws_connections",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.16.71:443",
@@ -219,8 +122,8 @@ var (
 
     gauge8 = prometheus.NewGauge(
         prometheus.GaugeOpts{
-            Namespace: "golang",
-            Name:      "node4b",
+            Namespace: "tap",
+            Name:      "ws_connections",
             Help:      "This is my gauge",
             ConstLabels: prometheus.Labels{
                 "node":   "172.31.16.71:6502",

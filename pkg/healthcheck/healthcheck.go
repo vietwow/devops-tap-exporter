@@ -13,10 +13,10 @@ import (
 )
 
 type ConsumerDataBlock struct {
-  ConnectionCount int `json:"connectionCount"`
-  ConnectionLimit int `json:"connectionLimit"`
-  ConnectionLoad float64 `json:"connectionLoad"`
-  ConnectionsRemaining int `json:"connectionsRemaining"`
+    ConnectionCount int `json:"connectionCount"`
+    ConnectionLimit int `json:"connectionLimit"`
+    ConnectionLoad float64 `json:"connectionLoad"`
+    ConnectionsRemaining int `json:"connectionsRemaining"`
 }
 
 type Healthcheck_response struct {
