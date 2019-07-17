@@ -58,7 +58,15 @@ var (
     //         },
     //     })
 
-
+    gauge1 = prometheus.NewGauge(
+        prometheus.GaugeOpts{
+            Namespace: "tap",
+            Name:      "ws_connections",
+            Help:      "This is my gauge",
+            ConstLabels: prometheus.Labels{
+                "node":   "172.31.19.76:443",
+            },
+        })
 
     gauge2 = prometheus.NewGauge(
         prometheus.GaugeOpts{
